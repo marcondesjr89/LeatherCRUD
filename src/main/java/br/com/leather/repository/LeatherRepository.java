@@ -1,5 +1,10 @@
 package br.com.leather.repository;
 
-public interface LeatherRepository {
+import br.com.leather.model.Leather;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LeatherRepository extends JpaRepository<Leather, Long> {
+
+
 
 }
