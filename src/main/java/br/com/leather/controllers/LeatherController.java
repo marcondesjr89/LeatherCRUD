@@ -1,6 +1,8 @@
 package br.com.leather.controllers;
 
 import br.com.leather.model.Leather;
+import br.com.leather.repository.LeatherRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,6 +14,9 @@ import java.util.Optional;
 public class LeatherController {
 
     List<Leather> leathers = new ArrayList<>();
+
+    @Autowired
+    private LeatherRepository leatherRepository;
 
     @GetMapping("/{id}")
     public Leather leather(@PathVariable("id") Long id){
@@ -25,13 +30,18 @@ public class LeatherController {
 
     @PostMapping("/")
     public Leather leather(@RequestBody Leather leather){
-        leathers.add(leather);
-        return leather;
+        return this.leatherRepository.save(leather);
+
     }
 
     @GetMapping("/list")
     public List<Leather> list(){
-        return leathers;
+        return this.leatherRepository.findAll();
+    }
+
+    @GetMapping("/list/{id}")
+    public List<Leather> listMoreThan(@PathVariable("id") Long id){
+        return this.leatherRepository.findAllMoreThan(id);
     }
 
 }
