@@ -34,14 +34,26 @@ public class LeatherController {
 
     }
 
-    @GetMapping("/list")
+        @GetMapping("/list")
     public List<Leather> list(){
         return this.leatherRepository.findAll();
     }
 
-    @GetMapping("/list/{id}")
+   @GetMapping("/list/{id}")
     public List<Leather> listMoreThan(@PathVariable("id") Long id){
-        return this.leatherRepository.findAllMoreThan(id);
+        return this.leatherRepository.findByIdGreaterThan(id);
     }
+
+    @GetMapping("/findByQualidade/{qualidade}")
+    public List<Leather> findByQualidadeIgnoreCase(@PathVariable("qualidade") String qualidade){
+        return this.leatherRepository.findByQualidadeIgnoreCase(qualidade);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteLeather(@PathVariable("id") Long id){
+        this.leatherRepository.deleteById(id);
+
+    }
+
 
 }

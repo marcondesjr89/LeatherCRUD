@@ -9,7 +9,10 @@ import java.util.List;
 
 public interface LeatherRepository extends JpaRepository<Leather, Long> {
 
-    @Query("SELECT u from Leather u where u.id > :id")
-    public List<Leather> findAllMoreThan(@Param("id") Long id);
+    public List<Leather> findByIdGreaterThan(Long id);
+
+    public List<Leather> findByQualidadeIgnoreCase(String qualidade);
+
+    // public void deleteById(Long id);
 
 }
