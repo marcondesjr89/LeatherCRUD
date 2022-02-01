@@ -13,19 +13,19 @@ import java.util.Optional;
 @RequestMapping("/leathers")
 public class LeatherController {
 
-    List<Leather> leathers = new ArrayList<>();
+    /* List<Leather> leathers = new ArrayList<>(); */
 
     @Autowired
     private LeatherRepository leatherRepository;
 
     @GetMapping("/{id}")
     public Leather leather(@PathVariable("id") Long id){
-        Optional<Leather> leatherFind = leathers.stream().filter(leather -> leather.getId() == id).findFirst();
+
+        Optional<Leather> leatherFind = this.leatherRepository.findById(id);
         if (leatherFind.isPresent()){
             return leatherFind.get();
         }
         return null;
-
     }
 
     @PostMapping("/")
@@ -34,7 +34,7 @@ public class LeatherController {
 
     }
 
-        @GetMapping("/list")
+    @GetMapping("/list")
     public List<Leather> list(){
         return this.leatherRepository.findAll();
     }
@@ -48,6 +48,7 @@ public class LeatherController {
     public List<Leather> findByQualidadeIgnoreCase(@PathVariable("qualidade") String qualidade){
         return this.leatherRepository.findByQualidadeIgnoreCase(qualidade);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteLeather(@PathVariable("id") Long id){
